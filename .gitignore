@@ -1,5 +1,5 @@
 .env
-
 /_build
 /deps
 *.log
+erl_crash.dump
