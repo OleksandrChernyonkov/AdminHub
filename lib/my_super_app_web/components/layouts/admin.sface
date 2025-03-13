@@ -1,0 +1,120 @@
+<header class="fixed top-0 mb-4 bg-gohan w-full" style="background-color: #cbd5e1;  z-index: 9;">
+  <div class="relative p-5 flex flex-row gap-2 items-center justify-between text-bulma">
+    <a href="/" aria-label="admin main page">
+      <svg class="moon-logo" style="height: 2em; width: 2em">
+        <use href="/moon_icons/svgs/logos/logo-moon-design-short.svg#item" />
+      </svg>
+    </a>
+  </div>
+</header>
+
+<nav
+  aria-label="Sidebar"
+  class="fixed top-16 flex flex-col flex-grow gap-2 pt-16 pb-20 px-5 lg:px-6"
+>
+  <div class="flex flex-col gap-1 pt-5">
+    <a
+      class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+      href="/admin/users/"
+    >
+      Admins
+    </a>
+
+    {#if @current_user && @current_user.role.permission_id != 4}
+      <a
+        class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+        href="/admin/invited-users/"
+      >
+        Invited users
+      </a>
+    {/if}
+
+    {#if @current_user && @current_user.role.permission_id > 2}
+      <a
+        class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+        href="/admin/site-configs/"
+      >
+        Site Configs
+      </a>
+
+      <a
+        class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+        href="/admin/roles/"
+      >
+        Roles
+      </a>
+    {/if}
+
+    {#if @current_user && @current_user.role.name == "super_admin"}
+      <a
+        class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+        href="/admin/operators/"
+      >
+        Operators
+      </a>
+    {/if}
+
+    <a
+      class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+      href="/admin/posts/"
+    >
+      Posts
+    </a>
+
+    <a
+      class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+      href="/admin/published_posts/"
+    >
+      Published posts
+    </a>
+
+    <a
+      class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+      href="/admin/pictures/"
+    >
+      Pictures
+    </a>
+
+    <a
+      class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+      href="/admin/rows/"
+    >
+      Global Targets Policy
+    </a>
+  </div>
+
+  <br>
+  <a
+    class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
+       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
+       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
+    href="/users/"
+  >
+    User page
+  </a>
+</nav>
+
+<main class="px-4 py-20 sm:px-6 lg:px-8" style="padding-top: 40px;">
+  <div class="mx-auto max-w-70rem pt-5 mt-5 ms-90000 me-90000">
+    <.flash_group flash={@flash} />
+    {@inner_content}
+  </div>
+</main>
