@@ -1556,6 +1556,10 @@ select {
   top: 100%;
 }
 
+.left-5 {
+  left: 1.25rem;
+}
+
 .isolate {
   isolation: isolate;
 }

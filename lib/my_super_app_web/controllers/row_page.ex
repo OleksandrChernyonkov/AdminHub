@@ -1,5 +1,4 @@
 defmodule MySuperAppWeb.RowPage do
-  # alias MySuperApp.Row
   alias MySuperApp.{RowProcessor, Accounts, CasinosAdmins}
   alias Moon.Design.{Form, Button, Table, Modal, Pagination}
   alias Moon.Design.Table.Column
@@ -7,14 +6,14 @@ defmodule MySuperAppWeb.RowPage do
   alias Moon.Icon
   alias Moon.Icons.ControlsChevronRight
   alias Moon.Icons.ControlsChevronLeft
-  use MySuperAppWeb, :admin_surface_live_view
+  use MySuperAppWeb, :surface_live_view
 
   @moduledoc """
   Module for rendering vocabulary app
   """
   def mount(_params, session, socket) do
     rows = RowProcessor.get_list()
-    random_row = Enum.random(rows)
+    random_row = RowProcessor.get_random_row(rows)
 
     {:ok,
      assign(socket,
@@ -31,10 +30,7 @@ defmodule MySuperAppWeb.RowPage do
        total_pages: CasinosAdmins.page_count(Enum.count(rows), 10),
        toggle_table_view: false,
        filter_form:
-         %{
-           "from_id" => RowProcessor.get_min_id(rows),
-           "to_id" => RowProcessor.get_max_id(rows)
-         }
+         RowProcessor.get_filter_form(rows)
          |> to_form()
      )}
   end
@@ -65,7 +61,7 @@ defmodule MySuperAppWeb.RowPage do
 
   def handle_event("get_next_word", _params, socket) do
     Modal.close("add_words_modal")
-    random_row = Enum.random(socket.assigns.rows)
+    random_row = RowProcessor.get_random_row(socket.assigns.rows)
 
     {:noreply,
      assign(socket,
@@ -103,7 +99,7 @@ defmodule MySuperAppWeb.RowPage do
 
   def handle_event("remove_from_rows", _params, socket) do
     rows = RowProcessor.remove_row_from_rows(socket.assigns.rows, socket.assigns.random_row.id)
-    random_row = Enum.random(rows)
+    random_row = RowProcessor.get_random_row(rows)
 
     {:noreply,
      assign(socket,
@@ -121,7 +117,7 @@ defmodule MySuperAppWeb.RowPage do
      assign(socket,
        rows: rows,
        filter_form:
-         %{"from_id" => RowProcessor.get_min_id(rows), "to_id" => RowProcessor.get_max_id(rows)}
+         RowProcessor.get_filter_form(rows)
          |> to_form()
      )}
   end
@@ -166,7 +162,7 @@ defmodule MySuperAppWeb.RowPage do
               <Input
                 type="number"
                 placeholder={@filter_form.params["from_id"]}
-                class="w-20 p-2 border-2 border-gray-300 rounded text-center text-black text-xl transition focus:outline-none focus:ring focus:ring-blue-500"
+                class="w-20 p-2 border-2 border-gray-300 rounded text-center text-black text-xl focus:outline-none focus:ring focus:ring-blue-500"
               />
             </Field>
 
@@ -175,12 +171,12 @@ defmodule MySuperAppWeb.RowPage do
               <Input
                 type="number"
                 placeholder={@filter_form.params["to_id"]}
-                class="w-20 p-2 border-2 border-gray-300 rounded text-center text-black text-xl transition focus:outline-none focus:ring focus:ring-blue-500"
+                class="w-20 p-2 border-2 border-gray-300 rounded text-center text-black text-xl focus:outline-none focus:ring focus:ring-blue-500"
               />
             </Field>
             <Button
               on_click="restart_rows"
-              class="close-button font-bold text-black border-2 border-black hover:bg-red-200 transition"
+              class="close-button font-bold text-black border-2 border-black hover:bg-red-200"
             >
               <Icon class="text-3xl" name="arrows_update" />
             </Button>
@@ -189,7 +185,7 @@ defmodule MySuperAppWeb.RowPage do
 
         <Button
           on_click="change_language"
-          class="edit-button font-bold text-black border-2 border-black hover:bg-gray-200 transition"
+          class="edit-button font-bold text-black border-2 border-black hover:bg-gray-200"
         >
           {@translation_type}
           <Icon class="text-3xl" name="arrows_refresh_round" />
@@ -210,19 +206,20 @@ defmodule MySuperAppWeb.RowPage do
         <div class="flex justify-center gap-4">
           <Button
             on_click="remove_from_rows"
-            class="delete-button font-bold text-black border-2 border-black hover:bg-red-200 transition"
+            disabled={@rows == []}
+            class="delete-button font-bold text-black border-2 border-black hover:bg-red-200"
           >
             <Icon class="text-3xl" name="generic_minus" />
           </Button>
           <Button
             on_click="get_next_word"
-            class="edit-button font-bold text-black border-2 border-black hover:bg-blue-200 transition"
+            class="edit-button font-bold text-black border-2 border-black hover:bg-blue-200"
           >
             Next word
           </Button>
           <Button
             on_click="get_translation"
-            class="edit-button font-bold text-black border-2 border-black hover:bg-green-200 transition"
+            class="edit-button font-bold text-black border-2 border-black hover:bg-green-200"
           >
             <Icon class="text-3xl" name="controls_eye" />
           </Button>
@@ -241,7 +238,7 @@ defmodule MySuperAppWeb.RowPage do
       <br>
       <Button
         on_click="change_toggle_table_view"
-        class="close-button font-bold text-black border-2 border-black hover:bg-green-200 transition"
+        class="close-button font-bold text-black border-2 border-black hover:bg-green-200"
       >
         {#if @toggle_table_view}
           <Icon class="text-3xl" name="controls_chevron_up" />
@@ -255,7 +252,7 @@ defmodule MySuperAppWeb.RowPage do
       </Button>
       <br>
 
-      {#if @toggle_table_view}
+      {#if @toggle_table_view and @rows != []}
         <Table
           items={row <- CasinosAdmins.get_models_limit(assigns, assigns.rows)}
           sorting_click="handle_sorting_click"

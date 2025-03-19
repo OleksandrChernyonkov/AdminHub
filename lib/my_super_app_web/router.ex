@@ -42,7 +42,6 @@ defmodule MySuperAppWeb.Router do
     live("/posts", PostsPage)
     live("/published_posts", PublishedPostsPage)
     live("/pictures", PicturesLive)
-    live("/rows", RowPage)
   end
 
   scope "/admin", MySuperAppWeb do
@@ -69,6 +68,7 @@ defmodule MySuperAppWeb.Router do
     live("/formlive", FormLive)
     live("/users", UsersPage)
     live("/users/:id/edit", UserEdit)
+    live("/rows", RowPage)
 
     live_session :require_authenticated_user,
       on_mount: [{MySuperAppWeb.UserAuth, :ensure_authenticated}] do

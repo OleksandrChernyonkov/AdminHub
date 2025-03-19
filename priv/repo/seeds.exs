@@ -123,6 +123,14 @@ Accounts.register_user(%{
   operator_id: nil
 })
 
+Accounts.register_user(%{
+  username: "cayman_raw",
+  email: "cayman_raw@ukr.net",
+  password: "qwerty123",
+  role_id: 2,
+  operator_id: nil
+})
+
 Enum.each([3, 6, 9], fn x ->
   username = Internet.user_name()
 

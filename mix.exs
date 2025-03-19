@@ -89,7 +89,7 @@ defmodule MySuperApp.MixProject do
         "ecto.migrate",
         "run priv/repo/seeds.exs"
       ],
-      "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate"],
+      "ecto.reset": ["ecto.drop", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "assets.setup": [
         "cmd --cd assets npm i",
         "cmd --cd deps/moon/assets npm i",

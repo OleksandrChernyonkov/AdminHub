@@ -9,44 +9,24 @@ defmodule MySuperAppWeb.HomeLive do
       <a
         href="/admin"
         class="flex items-center justify-center bg-bulma p-3 w-[15%] rounded-lg text-white font-semibold
-      shadow-md hover:bg-popo-dark transition duration-300 ease-in-out transform hover:scale-105"
+      shadow-md hover:bg-popo-dark hover:scale-105"
       >
-        admin page
+        Admin page
       </a>
       <a
         href="/users"
         class="flex items-center justify-center bg-bulma p-3 w-[15%] rounded-lg text-white font-semibold
-      shadow-md hover:bg-popo-dark transition duration-300 ease-in-out transform hover:scale-105"
+      shadow-md hover:bg-popo-dark hover:scale-105"
       >
-        user page
+        User page
       </a>
+
       <a
-        href="/tabs"
+        href="/rows"
         class="flex items-center justify-center bg-bulma p-3 w-[15%] rounded-lg text-white font-semibold
-      shadow-md hover:bg-popo-dark transition duration-300 ease-in-out transform hover:scale-105"
+      shadow-md hover:bg-popo-dark hover:scale-105"
       >
-        tabs
-      </a>
-      <a
-        href="/acc"
-        class="flex items-center justify-center bg-bulma p-3 w-[15%] rounded-lg text-white font-semibold
-      shadow-md hover:bg-popo-dark transition duration-300 ease-in-out transform hover:scale-105"
-      >
-        acc
-      </a>
-      <a
-        href="/menu"
-        class="flex items-center justify-center bg-bulma p-3 w-[15%] rounded-lg text-white font-semibold
-      shadow-md hover:bg-popo-dark transition duration-300 ease-in-out transform hover:scale-105"
-      >
-        menu
-      </a>
-      <a
-        href="/form"
-        class="flex items-center justify-center bg-bulma p-3 w-[15%] rounded-lg text-white font-semibold
-      shadow-md hover:bg-popo-dark transition duration-300 ease-in-out transform hover:scale-105"
-      >
-        form
+        Vocabulary app
       </a>
     </div>
     """

@@ -90,15 +90,6 @@
     >
       Pictures
     </a>
-
-    <a
-      class="shadow-md hover:text-white transition-colors py-2 px-4 rounded-lg focus:ring-2 focus:ring-trunks-dark
-       flex hover:bg-trunks-dark transform hover:scale-105 p-2 bg-transparent cursor-pointer transition items-center 
-       justify-start rounded-moon-i-sm gap-2 text-moon-14 w-full focus:outline-none focus:shadow-focus hover:bg-heles"
-      href="/admin/rows/"
-    >
-      Global Targets Policy
-    </a>
   </div>
 
   <br>

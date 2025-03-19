@@ -22,7 +22,7 @@ defmodule MySuperApp.RowProcessor do
       |> Enum.map(&Map.from_struct/1)
 
     if rows == [] do
-      [%{eng_word: "database is empty", ukr_word: "database is empty"}]
+      []
     else
       rows
     end
@@ -40,10 +40,32 @@ defmodule MySuperApp.RowProcessor do
       |> Enum.map(&Map.from_struct/1)
 
     if rows == [] do
-      [%{eng_word: "database is empty", ukr_word: "database is empty"}]
+      []
     else
       rows
     end
+  end
+
+  def get_random_row([]) do
+    %{}
+  end
+
+  def get_random_row(rows) do
+    Enum.random(rows)
+  end
+
+  def get_filter_form([]) do
+    %{
+      "from_id" => 0,
+      "to_id" => 0
+    }
+  end
+
+  def get_filter_form(rows) do
+    %{
+      "from_id" => get_min_id(rows),
+      "to_id" => get_max_id(rows)
+    }
   end
 
   def process_rows(rows) do
